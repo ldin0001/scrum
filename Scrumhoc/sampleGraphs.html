@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+window.onload = function() {
+
+var totalContributionsPie = {
+	title: {
+		text: "Total Contributions"
+	},
+	data: [{
+			type: "pie",
+			startAngle: 45,
+			showInLegend: "true",
+			legendText: "{label}",
+			indexLabel: "{label} ({y})",
+			yValueFormatString:"#,##0.#"%"",
+			dataPoints: [
+				{ label: "Paul", y: 36 },
+				{ label: "Marcus", y: 31 },
+				{ label: "Jack", y: 7 },
+				{ label: "Richard", y: 7 },
+				{ label: "Liang", y: 6 },
+				{ label: "Izad", y: 10 },
+			]
+	}]
+};
+
+var meaningfulContributionsPie = {
+	title: {
+		text: "Meaningful Contributions"
+	},
+	data: [{
+			type: "pie",
+			startAngle: 45,
+			showInLegend: "true",
+			legendText: "{label}",
+			indexLabel: "{label} ({y})",
+			yValueFormatString:"#,##0.#"%"",
+			dataPoints: [
+				{ label: "Paul", y: 20 },
+				{ label: "Marcus", y: 12 },
+				{ label: "Jack", y: 7 },
+				{ label: "Richard", y: 7 },
+				{ label: "Liang", y: 6 },
+				{ label: "Izad", y: 10 },
+			]
+	}]
+};
+
+var totalContributionsBar = {
+	title: {
+		text: "Total contributions"              
+	},
+	data: [              
+	{
+		// Change type to "doughnut", "line", "splineArea", etc.
+		type: "column",
+		dataPoints: [
+			{ label: "Paul", y: 36 },
+				{ label: "Marcus", y: 31 },
+				{ label: "Jack", y: 7 },
+				{ label: "Richard", y: 7 },
+				{ label: "Liang", y: 6 },
+				{ label: "Izad", y: 10 }
+		]
+	}
+	]
+};
+
+var meaningfulContributionsBar = {
+	title: {
+		text: "Meaningful Contributions"              
+	},
+	data: [              
+	{
+		// Change type to "doughnut", "line", "splineArea", etc.
+		type: "column",
+		dataPoints: [
+			{ label: "Paul", y: 20 },
+				{ label: "Marcus", y: 12 },
+				{ label: "Jack", y: 7 },
+				{ label: "Richard", y: 7 },
+				{ label: "Liang", y: 6 },
+				{ label: "Izad", y: 10 },
+		]
+	}
+	]
+};
+
+var TimelineBar = {
+	animationEnabled: true,
+	title:{
+		text: "Timeline of Contributions"   
+	},
+	axisY:{
+		title:"Weeks"
+	},
+	toolTip: {
+		shared: true,
+		reversed: true
+	},
+	data: [{
+		type: "stackedColumn",
+		name: "Pat",
+		showInLegend: "true",
+		yValueFormatString: "#,##0mn tonnes",
+		dataPoints: [
+			{ y: 80 , label: "Wk1" },
+			{ y: 200, label: "Wk2" },
+			{ y: 500, label: "Wk3" },
+			{ y: 433, label: "Wk4" },
+			{ y: 321, label: "Wk5" },
+			{ y: 750, label: "Wk6" }
+		]
+	},
+	{
+		type: "stackedColumn",
+		name: "Jerry",
+		showInLegend: "true",
+		yValueFormatString: "#,##0mn tonnes",
+		dataPoints: [
+			{ y: 1000 , label: "Wk1" },
+			{ y: 107, label: "Wk2" },
+			{ y: 523, label: "Wk3" },
+			{ y: 336, label: "Wk4" },
+			{ y: 399, label: "Wk5" },
+			{ y: 79, label: "Wk6" }
+		]
+	}]
+};
+
+var TimelineLineChart = {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Timeline of Contributions"
+	},
+	axisX:{
+		title:"Week number"
+	},
+	axisY: {
+		title: "Number of Contributions",
+		minimum: 0
+	},
+	toolTip:{
+		shared:true
+	},  
+	legend:{
+		cursor:"pointer",
+		verticalAlign: "top",
+		horizontalAlign: "left",
+		dockInsidePlotArea: true,
+		itemclick: toogleDataSeries
+	},
+	data: [{
+		type: "line",
+		showInLegend: true,
+		name: "Pat",
+		markerType: "square",
+		color: "#F08080",
+		dataPoints: [
+			{ x: 1, y: 2 },
+			{ x: 2, y: 100 },
+			{ x: 3, y: 200 },
+			{ x: 4, y: 477 },
+			{ x: 5, y: 599 },
+			{ x: 6, y: 699 },
+		]
+	},
+	{
+		type: "line",
+		showInLegend: true,
+		name: "Jerry",
+		dataPoints: [
+			{ x: 1, y: 60 },
+			{ x: 2, y: 57 },
+			{ x: 3, y: 51 },
+			{ x: 4, y: 56 },
+			{ x: 5, y: 54 },
+			{ x: 6, y: 55 },
+		]
+	}]
+};
+
+$("#chartContainer1").CanvasJSChart(totalContributionsPie);
+$("#chartContainer2").CanvasJSChart(totalContributionsBar);
+$("#chartContainer3").CanvasJSChart(meaningfulContributionsPie);
+$("#chartContainer4").CanvasJSChart(meaningfulContributionsBar);
+$("#chartContainer5").CanvasJSChart(TimelineBar);
+$("#chartContainer6").CanvasJSChart(TimelineLineChart);
+
+function toogleDataSeries(e){
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	} else{
+		e.dataSeries.visible = true;
+	}
+	e.chart.render();
+}
+}
+</script>
+</head>
+<body>
+<div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer3" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer4" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer5" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer6" style="height: 300px; width: 100%;"></div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>  
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html>
